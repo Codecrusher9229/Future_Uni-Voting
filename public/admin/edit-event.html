@@ -100,7 +100,7 @@ async function fetchEventDetails() {
         // ✅ Display event image correctly
         const eventImage = document.getElementById("currentEventImage");
         if (event.imageUrl) {
-            eventImage.src = `http://localhost:5000${event.imageUrl}`;
+            eventImage.src = `https://future-uni-voting.onrender.com${event.imageUrl}`;
             eventImage.style.display = "block"; // Ensure the image is visible
         } else {
             eventImage.style.display = "none"; // Hide if no image
