@@ -449,7 +449,7 @@ async function fetchGalleryImages() {
             imgWrapper.classList.add("image-wrapper");
 
             const img = document.createElement("img");
-            img.src = `http://localhost:5000${image.imageUrl}`;
+            img.src = `https://future-uni-voting.onrender.com${image.imageUrl}`;
             img.alt = "Event Image";
 
             const deleteBtn = document.createElement("button");
