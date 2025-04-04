@@ -231,7 +231,7 @@ detectBrowser();
 // main logic
         async function fetchParticipants() {
   try {
-    const response = await fetch("http://localhost:5000/api/future/participants");
+    const response = await fetch("https://future-uni-voting.onrender.com/api/future/participants");
     const participants = await response.json();
 
     const mrFutureContainer = document.getElementById("mrFuture");
@@ -265,7 +265,7 @@ async function generateFingerprintAndVote(participantId) {
     const result = await fp.get();
     const fingerprint = result.visitorId;
 
-    const response = await fetch(`http://localhost:5000/api/vote/${participantId}`, {
+    const response = await fetch(`https://future-uni-voting.onrender.com/api/vote/${participantId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fingerprint })
