@@ -63,7 +63,7 @@ async function fetchEventBanners() {
 
     // ✅ Extract banner images & update the slider
     imageArray = events.map(
-      (event) => `http://localhost:5000${event.imageUrl}`
+      (event) => `https://future-uni-voting.onrender.com${event.imageUrl}`
     );
     updateSlider();
   } catch (error) {
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <div class="event-inner">
             <div class="event-front">
               <div class="event-info">
-                <img src="http://localhost:5000${event.imageUrl}" alt="${
+                <img src="https://future-uni-voting.onrender.com${event.imageUrl}" alt="${
         event.title
       }" />
                 <p class="event-title">${event.title}</p>
@@ -220,7 +220,7 @@ function openAnimeWindow(event) {
   animeWindow.innerHTML = `
   <div class="anime-flexy">
     <div class="firsty">
-      <img src="http://localhost:5000${event.imageUrl}" alt="${event.title}" />
+      <img src="https://future-uni-voting.onrender.com${event.imageUrl}" alt="${event.title}" />
       <p class="anime-event-title">${event.title}</p>
       <p class="anime-event-date">${new Date(event.date).toDateString()}</p>
       <a href="/public/html/register.html" class="anime-btn" id="toggleregister2">Register now!</a> 
@@ -570,7 +570,7 @@ async function fetchParticipants() {
       const card = document.createElement("div");
       card.classList.add("participant-card");
       card.innerHTML = `
-        <img src="http://localhost:5000${participant.candidateImg}" alt="${participant.fullName}">
+        <img src="https://future-uni-voting.onrender.com${participant.candidateImg}" alt="${participant.fullName}">
         <h3>${participant.fullName}</h3>
         <p>${participant.department}</p>
         <span>${participant.category}</span>
