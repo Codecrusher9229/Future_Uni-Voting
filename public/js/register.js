@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const formData = { fullName, department, studentId, email, phone, eventId };
 
         try {
-            const response = await fetch("http://localhost:5000/api/register", {
+            const response = await fetch("https://future-uni-voting.onrender.com/api/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData)
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // ✅ Fetch Events for Dropdown
 async function fetchEvents() {
     try {
-        const response = await fetch("http://localhost:5000/api/events");
+        const response = await fetch("https://future-uni-voting.onrender.com/api/events");
         const events = await response.json();
 
         const eventDropdown = document.getElementById("event");
