@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
-const cron = require("node-cron");
 
 dotenv.config();
 const app = express();
@@ -12,10 +11,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ✅ Serve static files (this serves everything inside "public")
+// ✅ Serve Static Files
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/images", express.static(path.join(__dirname, "public", "images")));  // 🛠 Fix image loading
 
-// ✅ Import API routes
+// ✅ Import API Routes
 const eventRoutes = require("./routes/eventRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const galleryRoutes = require("./routes/galleryRoutes");
@@ -33,12 +33,12 @@ app.use("/api/future", futureRoutes);
 app.use("/api", voteRoutes);
 app.use("/api/toggle", toggleRoutes);
 
-// ✅ Serve frontend index.html (for root path "/")
+// ✅ Serve Frontend (index.html)
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// ✅ Serve subdirectories like "/admin", "/clubs"
+// ✅ Handle Subdirectories (admin, clubs, etc.)
 app.get("/:subdir", (req, res) => {
   const subdir = req.params.subdir;
   const filePath = path.join(__dirname, "public", subdir, "index.html");
