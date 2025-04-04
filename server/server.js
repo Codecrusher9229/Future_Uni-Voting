@@ -22,10 +22,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ✅ Static files
+// ✅ Serve frontend from "public" folder
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// ✅ Static files for uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// ✅ Routes
+// ✅ API Routes
 app.use("/api", registerRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/admin", adminRoutes);
@@ -34,12 +41,7 @@ app.use("/api/future", futureRoutes);
 app.use("/api", voteRoutes);
 app.use("/api/toggle", toggleRoutes);
 
-// ✅ Default route to fix "Cannot GET /"
-app.get("/", (req, res) => {
-  res.send("Backend server is running successfully!");
-});
-
-// ✅ Daily cleanup task (optional)
+// ✅ Daily cleanup task
 cron.schedule("0 0 * * *", async () => {
   try {
     const today = new Date();
@@ -55,7 +57,7 @@ cron.schedule("0 0 * * *", async () => {
   }
 });
 
-// ✅ MongoDB + Server start
+// ✅ Start server after DB connection
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(process.env.MONGO_URI)
