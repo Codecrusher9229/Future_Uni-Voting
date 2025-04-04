@@ -52,7 +52,7 @@ let imageArray = [];
 async function fetchEventBanners() {
   try {
     // ✅ Fetch event banners from API
-    const response = await fetch("http://localhost:5000/api/events");
+    const response = await fetch("https://future-uni-voting.onrender.com/api/events");
     const events = await response.json();
 
     // ✅ Check if events have images
@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // FETCH & DISPLAY EVENTS
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const response = await fetch("http://localhost:5000/api/events");
+    const response = await fetch("https://future-uni-voting.onrender.com/api/events");
     const events = await response.json();
     const eventsContainer = document.getElementById("eventsContainer");
     eventsContainer.innerHTML = "";
@@ -249,7 +249,7 @@ function openAnimeWindow(event) {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/toggle");
+      const response = await fetch("https://future-uni-voting.onrender.com/api/toggle");
       const data = await response.json();
 
       // ✅ Apply disable styles
@@ -456,7 +456,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   async function checkToggleState() {
     try {
-      const response = await fetch("http://localhost:5000/api/toggle");
+      const response = await fetch("https://future-uni-voting.onrender.com/api/toggle");
       const data = await response.json();
 
       // ✅ Disable buttons & block cursor based on toggle states
@@ -549,7 +549,7 @@ async function fetchParticipants() {
 
   try {
     const response = await fetch(
-      "http://localhost:5000/api/future/participants"
+      "https://future-uni-voting.onrender.com/api/future/participants"
     );
     if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
 
