@@ -575,13 +575,14 @@ async function fetchParticipants() {
 
         
        
-        <span>${participant.category}</span>
+        
       `;
        // <p>${participant.department}</p>
       participantTrack.appendChild(card);
     });
 
     // Duplicate for Infinite Loop Effect
+    // <span>${participant.category}</span>
     duplicateCards(participantTrack);
   } catch (error) {
     console.error("Error fetching participants:", error);
