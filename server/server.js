@@ -6,8 +6,16 @@ const path = require("path");
 const cron = require("node-cron");
 
 dotenv.config();
+const app = express();
 
-// ✅ Routes
+// ✅ Middleware
+app.use(cors());
+app.use(express.json());
+
+// ✅ Serve static files (this serves everything inside "public")
+app.use(express.static(path.join(__dirname, "public")));
+
+// ✅ Import API routes
 const eventRoutes = require("./routes/eventRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const galleryRoutes = require("./routes/galleryRoutes");
@@ -16,16 +24,7 @@ const futureRoutes = require("./routes/futureRoutes");
 const voteRoutes = require("./routes/voteRoutes");
 const toggleRoutes = require("./routes/toggleRoutes");
 
-const app = express();
-
-// ✅ Middleware
-app.use(cors());
-app.use(express.json());
-
-// ✅ Static files
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-// ✅ Routes
+// ✅ API Routes
 app.use("/api", registerRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/admin", adminRoutes);
@@ -34,28 +33,21 @@ app.use("/api/future", futureRoutes);
 app.use("/api", voteRoutes);
 app.use("/api/toggle", toggleRoutes);
 
-// ✅ Default route to fix "Cannot GET /"
+// ✅ Serve frontend index.html (for root path "/")
 app.get("/", (req, res) => {
-  res.send("Backend server is running successfully!");
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// ✅ Daily cleanup task (optional)
-cron.schedule("0 0 * * *", async () => {
-  try {
-    const today = new Date();
-    const expiredEvents = await Event.find({ date: { $lt: today } });
-
-    if (expiredEvents.length > 0) {
-      const expiredEventIds = expiredEvents.map(event => event._id);
-      await Participant.deleteMany({ event: { $in: expiredEventIds } });
-      console.log(`🗑️ Deleted participants for ${expiredEvents.length} expired events.`);
-    }
-  } catch (error) {
-    console.error("❌ Error cleaning expired participant data:", error);
-  }
+// ✅ Serve subdirectories like "/admin", "/clubs"
+app.get("/:subdir", (req, res) => {
+  const subdir = req.params.subdir;
+  const filePath = path.join(__dirname, "public", subdir, "index.html");
+  res.sendFile(filePath, (err) => {
+    if (err) res.status(404).send("Not Found");
+  });
 });
 
-// ✅ MongoDB + Server start
+// ✅ MongoDB Connection & Start Server
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(process.env.MONGO_URI)
