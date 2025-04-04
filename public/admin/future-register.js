@@ -18,7 +18,7 @@ document.getElementById("registrationForm").addEventListener("submit", async fun
     formData.append("candidateImg", fileInput.files[0]);
 
     try {
-        const response = await fetch("http://localhost:5000/api/future/register", {
+        const response = await fetch("https://future-uni-voting.onrender.com/api/future/register", {
             method: "POST",
             body: formData
         });
