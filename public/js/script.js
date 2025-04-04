@@ -572,9 +572,12 @@ async function fetchParticipants() {
       card.innerHTML = `
         <img src="https://future-uni-voting.onrender.com${participant.candidateImg}" alt="${participant.fullName}">
         <h3>${participant.fullName}</h3>
-        <p>${participant.department}</p>
+
+        
+       
         <span>${participant.category}</span>
       `;
+       // <p>${participant.department}</p>
       participantTrack.appendChild(card);
     });
 
