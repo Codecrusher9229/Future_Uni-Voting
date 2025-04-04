@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
     
             try {
-                const response = await fetch("http://localhost:5000/api/events/add", {
+                const response = await fetch("https://future-uni-voting.onrender.com/api/events/add", {
                     method: "POST",
                     headers: { "Authorization": `Bearer ${token}` },
                     body: formData
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // ✅ Fetch Events and Display in Table
 async function fetchAdminEvents() {
     try {
-        const response = await fetch("http://localhost:5000/api/events"); 
+        const response = await fetch("https://future-uni-voting.onrender.com/api/events"); 
         if (!response.ok) throw new Error("Failed to fetch events.");
 
         const events = await response.json();
@@ -121,7 +121,7 @@ async function deleteEvent(eventId) {
     if (!confirm("Are you sure you want to delete this event?")) return;
 
     try {
-        const response = await fetch(`http://localhost:5000/api/events/${eventId}`, {
+        const response = await fetch(`https://future-uni-voting.onrender.com/api/events/${eventId}`, {
             method: "DELETE"
         });
 
@@ -171,7 +171,7 @@ document.getElementById("refreshBtn").addEventListener("click", function () {
         }
     
         try {
-            const response = await fetch("http://localhost:5000/api/gallery/upload", {
+            const response = await fetch("https://future-uni-voting.onrender.com/api/gallery/upload", {
                 method: "POST",
                 body: formData
             });
@@ -213,7 +213,7 @@ function toggleSection(sectionId) {
 // ✅ Fetch Events from MongoDB
 async function fetchAdminEvents() {
     try {
-        const response = await fetch("http://localhost:5000/api/events");
+        const response = await fetch("https://future-uni-voting.onrender.com/api/events");
         if (!response.ok) throw new Error("⚠️ Failed to fetch events");
 
         const events = await response.json();
@@ -239,7 +239,7 @@ let participantsData = []; // Ensure this is globally declared at the top
 async function fetchRegisteredParticipants() {
     try {
         const token = localStorage.getItem("adminToken"); // Get the stored token
-        const response = await fetch("http://localhost:5000/api/admin/registered-participants", {
+        const response = await fetch("https://future-uni-voting.onrender.com/api/admin/registered-participants", {
             headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -293,7 +293,7 @@ function editParticipant(participantId) {
         return;
     }
 
-    fetch(`http://localhost:5000/api/admin/update-participant/${participantId}`, {
+    fetch(`https://future-uni-voting.onrender.com/api/admin/update-participant/${participantId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -321,7 +321,7 @@ function editParticipant(participantId) {
 function deleteParticipant(participantId) {
     if (!confirm("⚠️ Are you sure you want to delete this participant?")) return;
 
-    fetch(`http://localhost:5000/api/admin/delete-participant/${participantId}`, {
+    fetch(`https://future-uni-voting.onrender.com/api/admin/delete-participant/${participantId}`, {
         method: "DELETE",
         headers: {
             Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
@@ -341,7 +341,7 @@ function deleteParticipant(participantId) {
 document.getElementById("deleteAllParticipantsBtn").addEventListener("click", () => {
     if (!confirm("⚠️ Are you sure you want to delete ALL participants? This action is irreversible!")) return;
 
-    fetch("http://localhost:5000/api/admin/delete-all-participants", {
+    fetch("https://future-uni-voting.onrender.com/api/admin/delete-all-participants", {
         method: "DELETE",
         headers: {
             Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
@@ -434,7 +434,7 @@ const galleryContainer = document.getElementById("galleryImagesContainer");
 // ✅ Fetch Images from Backend
 async function fetchGalleryImages() {
     try {
-        const response = await fetch("http://localhost:5000/api/gallery/fetch");
+        const response = await fetch("https://future-uni-voting.onrender.com/api/gallery/fetch");
         const images = await response.json();
 
         galleryContainer.innerHTML = ""; // Clear existing images
@@ -471,7 +471,7 @@ async function deleteImage(imageId) {
     if (!confirm("Are you sure you want to delete this image?")) return;
 
     try {
-        const response = await fetch(`http://localhost:5000/api/gallery/delete/${imageId}`, {
+        const response = await fetch(`https://future-uni-voting.onrender.com/api/gallery/delete/${imageId}`, {
             method: "DELETE",
         });
 
