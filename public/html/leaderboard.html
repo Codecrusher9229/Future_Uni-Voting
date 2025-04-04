@@ -120,7 +120,7 @@ tbody tr:hover {
     <script>
         async function fetchLeaderboard() {
     try {
-        const response = await fetch("http://localhost:5000/api/future/leaderboard");
+        const response = await fetch("https://future-uni-voting.onrender.com/api/future/leaderboard");
         const data = await response.json();
 
         const mrFutureTable = document.getElementById("mrFutureTable").querySelector("tbody");
