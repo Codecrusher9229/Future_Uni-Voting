@@ -11,6 +11,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 // ✅ Serve Static Files
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/images", express.static(path.join(__dirname, "public", "images")));  // 🛠 Fix image loading
@@ -24,6 +26,7 @@ const futureRoutes = require("./routes/futureRoutes");
 const voteRoutes = require("./routes/voteRoutes");
 const toggleRoutes = require("./routes/toggleRoutes");
 
+
 // ✅ API Routes
 app.use("/api", registerRoutes);
 app.use("/api/events", eventRoutes);
@@ -32,6 +35,7 @@ app.use("/api/gallery", galleryRoutes);
 app.use("/api/future", futureRoutes);
 app.use("/api", voteRoutes);
 app.use("/api/toggle", toggleRoutes);
+app.use("/uploads", express.static("uploads"));
 
 // ✅ Serve Frontend (index.html)
 app.get("/", (req, res) => {
