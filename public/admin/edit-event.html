@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Event - Future Fest</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <header>
+        
+        <h1>Edit Event</h1>
+        <nav>
+            <button class="raghav" onclick="window.location.href='admin.html'">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                <span class="event">Back</span>
+            </button>
+            <style>
+                span.event{
+                    font-size: 18px;
+                }
+                button.raghav{
+                    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+                    max-width: 0;
+                    border: none;
+                    color: white;
+                    font-size: 16px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 8px;
+                    margin-bottom: 14px;
+                    padding: 10px 40px;
+                    border-radius: 20px;
+                    position: relative;
+                    overflow: hidden;
+                    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+                    transition: all 0.3s ease;
+                    white-space: nowrap;
+                }
+            </style>
+        </nav>
+    </header>
+
+    <main>
+        <section id="edit-event">
+            <h2>Update Event Details</h2>
+            <form id="editEventForm">
+                <input type="hidden" id="eventId">
+
+                <label for="editEventName">Event Name:</label>
+                <input type="text" id="editEventName" required>
+
+                <label for="editEventDate">Event Date:</label>
+                <input type="date" id="editEventDate" required>
+
+                <label for="editEventDescription">Event Description:</label>
+                <input type="text" id="editEventDescription" required>
+
+                <label for="currentEventImage">Current Banner:</label>
+                <img id="currentEventImage" src="" width="200" height="100" alt="Event Banner">
+
+                <label for="editEventImage">Upload New Banner (Optional):</label>
+                <input type="file" id="editEventImage" accept="image/*">
+
+                <button type="submit">Update Event</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        // ✅ Fetch Event Details
+async function fetchEventDetails() {
+    const params = new URLSearchParams(window.location.search);
+    const eventId = params.get("id");
+
+    if (!eventId) {
+        alert("Event ID not found!");
+        window.location.href = "admin.html"; // Redirect if no ID
+        return;
+    }
+
+    document.getElementById("eventId").value = eventId;
+
+    try {
+        const response = await fetch(`http://localhost:5000/api/events/${eventId}`);
+        if (!response.ok) throw new Error("Failed to fetch event details.");
+
+        const event = await response.json();
+
+        // ✅ Populate form fields
+        document.getElementById("editEventName").value = event.title;
+        document.getElementById("editEventDate").value = new Date(event.date).toISOString().split('T')[0];
+        document.getElementById("editEventDescription").value = event.description;
+
+        // ✅ Display event image correctly
+        const eventImage = document.getElementById("currentEventImage");
+        if (event.imageUrl) {
+            eventImage.src = `http://localhost:5000${event.imageUrl}`;
+            eventImage.style.display = "block"; // Ensure the image is visible
+        } else {
+            eventImage.style.display = "none"; // Hide if no image
+        }
+
+    } catch (error) {
+        console.error("❌ Error fetching event details:", error);
+    }
+}
+
+// ✅ Update Event Details
+document.getElementById("editEventForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const eventId = document.getElementById("eventId").value;
+    const updatedEvent = new FormData();
+    updatedEvent.append("title", document.getElementById("editEventName").value);
+    updatedEvent.append("date", document.getElementById("editEventDate").value);
+    updatedEvent.append("description", document.getElementById("editEventDescription").value);
+
+    const eventImage = document.getElementById("editEventImage").files[0];
+    if (eventImage) {
+        updatedEvent.append("image", eventImage);
+    }
+
+    try {
+        const response = await fetch(`http://localhost:5000/api/events/${eventId}`, {
+            method: "PUT",
+            body: updatedEvent,
+        });
+
+        const data = await response.json();
+        alert(data.message);
+        window.location.href = "admin.html";
+    } catch (error) {
+        console.error("❌ Error updating event:", error);
+    }
+});
+
+// ✅ Run function on page load
+window.onload = fetchEventDetails;
+
+    </script>
+
+</body>
+</html>

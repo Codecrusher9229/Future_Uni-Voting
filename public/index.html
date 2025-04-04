@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FUTURE UNIVERSITY-Annual Fest </title>
+  <link rel="icon" type="image/x-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/public/styles/styles.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- AOS scroll -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Style+Script&display=swap');
+  </style>
+</head>
+
+<body>
+  
+  <!-- navbar section -->
+  <header>
+    <div class="coverpg"></div>
+    <nav>
+      <div class="futurelogo"><a href="https://futureuniversity.in/" target="_blank" rel="noopener noreferrer"><img
+            src="/public/images/logo.png" alt=""></a></div>
+      <div class="nav2">
+        <a href="#sick">Home</a>
+        <a href="#get-btn">About</a>
+        <a href="#main3">Events</a>
+        <a href="#contact">Contact us</a>
+        <a><img src="/public/images/shield.png" alt=""></a>
+      </div>
+    </nav>
+  </header>
+  <!-- slider -->
+
+  <main class="main">
+    <div class="supermain">
+      <div class="slider-container">
+          <div class="slider" id="slider">
+              <!-- Dynamic images will be inserted here -->
+          </div>
+          <button class="btn prev" onclick="prevSlide()">&#10094;</button>
+          <button class="btn next" onclick="nextSlide()">&#10095;</button>
+      </div>
+  </div>
+    <div class="sick" id="sick">
+      <div class="texty">
+        <span class="word0">Witness the madness of</span><br> 
+        <span class="word1">Starnight!</span>
+        <span class="word2">and the</span> <br> 
+        <span class="word3">exciting craze of</span><br> 
+        <span class="word4">Melange-</span>
+        <span class="word4.5"> the annual event</span><br> 
+        <span class="word5">in your very own</span><br> 
+        <span class="word6">Future University</span>
+      </div>
+
+      <div class="get-btn" id="get-btn">
+        <a href="#attach">Register for events</a>
+      </div>
+    </div>
+  </main>
+  
+
+  <div class="gayab-btn">
+    <div class="get-btn">
+      <a href="/public/html/register.html">Register in any of these</a>
+    </div>
+  </div>
+
+  <!-- Melange section -->
+  <div class="main2" id="main2">    <!-- data-aos="fade-down-left"-->
+    <h2>Me<span>Lange</span> - 2025</h2>
+    <div class="para">
+      <p>Join Future University on April 5th for Melange 2025, a celebration of creativity and innovation. Experience electrifying performances, explore cutting-edge tech exhibits, and admire stunning artistic creations. Connect with visionaries, explore groundbreaking ideas, and celebrate limitless possibilities. From music to technology and visual arts, Melange offers inspiration for all. Don’t miss this unforgettable experience where ideas collide and imagination takes flight!</p>
+
+    </div>
+    <!-- countdown   -->
+    <div class="clock">
+      <h4>Emerge yourself in this exciting event in</h4>
+      <div id="countdown">
+        <div id="timer">
+          <div>
+            <span id="days">0</span>
+            <span class="tex">Days</span>
+          </div>
+          <div>
+            <span id="hours">0</span>
+            <span class="tex">Hours</span>
+          </div>
+          <div>
+            <span id="minutes">0</span>
+            <span class="tex">Minutes</span>
+          </div>
+          <div>
+            <span id="seconds">0</span>
+            <span class="tex">Seconds</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <img class="imgcon1" src="/public/images/sl_110621_46650_20.jpg" alt="">
+    <img class="imgcon2" src="/public/images/fliped.jpg" alt="">
+  </div>
+
+  <!-- voting section -->
+  <div class="main4" id="hidden-vote">
+    <h1>Vote for Mr Future & Miss Future!</h1>
+    <img class="imgcon3" src="/public/images/10400093.png" alt="">
+    <div id="loader" style="display: none;">Loading participants...</div>
+    <div class="vote-carousel">
+      <div class="carousel-track" id="participantTrack"></div>
+    </div>  
+    <div class="vote">
+      <div class="vote-message">
+        <p>
+          Celebrate talent, passion, and dedication. Cast your vote and help crown the next 
+          <strong>Mr. Future</strong> and <strong>Miss Future</strong>! Every vote is a step toward recognizing excellence.
+        </p>
+      </div>
+    </div>
+    <div class="vote-btn">
+      <a href="/public/html/vote.html" id="toggleVote">Vote Now!</a>
+  </div>
+  </div>
+  <!-- events info -->
+  <div class="supermain2">
+    <div class="guess">
+      <img class="imigi0" src="/public/images/jubin.png" alt="">
+      <!-- <img class="imigi" src="/public/Add a heading.png"  alt=""> -->
+      
+      <div class="star-btn">
+        <a href="/public/html/register.html" id="toggleRegister">Register yourself in these events</a>
+      </div>
+    </div>
+    <div class="middle">
+      <div class="main3" id="main3">
+       <div class="anime-window" id="anime-window"></div> 
+        <h2 id="upcomingff">Upcoming Events in Future Fiesta:</h2>
+        <h3 class="mobile">Tap the card for Event Info: </h3>
+
+        <div class="events-container" id="eventsContainer">
+          <!-- events will dynamically show here -->
+        </div>
+
+      </div>
+      <div class="attach" id="attach">
+        <h2>Star<span>night</span> is here!!</h2>
+        <div class="para2"><p><strong>Future Fiesta Melange 2025: A Night to Remember</strong></p>
+          <p><em>Jubin Nautiyal Live: Where Melodies Meet Magic!</em></p>
+          <p>Experience the soulful voice of Jubin Nautiyal at Future Fiesta Melange 2025! Join us for a night of music, passion, and unforgettable memories. Let the rhythm ignite your spirit under a starlit sky. Mark your calendars and make it a night to remember!</p>
+          </div>
+      </div>
+    </div>
+  </div>
+
+ 
+
+
+
+  <!-- Club -->
+<div class="club-heading-container">
+  <h2 class="club-heading">
+    Clubs Organizing the Crazy Events:
+  </h2>
+</div>
+
+
+<section class="Club">
+  
+<div class="container swiper">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <div class="slider-wrapper">
+    <div class="card-list swiper-wrapper">
+      <div class="card-item swiper-slide">
+        <img src="/public/Clubs/Images/einstien.jpg" alt="User Image" class="user-image">
+        <h2 class="user-name">Einstien Club</h2>
+        <button class="message-button" onclick="window.location.href='/public/Clubs/einsteinClub.html'">
+    View Now
+</button>
+      </div>
+      <div class="card-item swiper-slide">
+        <img src="/public/Clubs/Images/AKRITI CLUB 3.png" alt="User Image" class="user-image">
+        <h2 class="user-name">Akriti Club</h2>
+        <button class="message-button" onclick="window.location.href='/public/Clubs/akritiClub.html'">
+    View Now
+</button>
+      </div>
+      <div class="card-item swiper-slide">
+        <img src="/public/Clubs/Images/goonj.jpg" alt="User Image" class="user-image">
+        <h2 class="user-name">Goonj Club</h2>
+        <button class="message-button" onclick="window.location.href='/public/Clubs/goonjClub.html'">
+    View Now
+</button>
+      </div>
+      <div class="card-item swiper-slide">
+        <img src="/public/Clubs/Images/impression.jpg" alt="User Image" class="user-image">
+        <h2 class="user-name">impression Club</h2>
+        <button class="message-button" onclick="window.location.href='/public/Clubs/impressionClub.html'">
+    View Now
+</button>
+      </div>
+      <div class="card-item swiper-slide">
+        <img src="/public/Clubs/Images/prayatna.jpg" alt="User Image" class="user-image">
+        <h2 class="user-name">Prayatna Club</h2>
+        <button class="message-button" onclick="window.location.href='/public/Clubs/prayatnaClub.html'">
+          View Now
+      </button>      
+      </div>
+      <!-- <div class="card-item swiper-slide">
+        <img src="/public/Clubs/Images/spardha.jpg" alt="User Image" class="user-image">
+        <h2 class="user-name">Spardha Club</h2>
+
+        <button class="message-button" onclick="window.location.href='/public/Clubs/spardhaClub.html'">
+          View Now
+      </button>
+      </div> -->
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-slide-button swiper-button-prev"></div>
+    <div class="swiper-slide-button swiper-button-next"></div>
+  </div>
+</div>
+</section>
+<!-- Linking SwiperJS script -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- form yha aa gya...-->
+<section id="contact">
+  <div class="visme_d" data-title="Event Contact Form" data-url="kk3mg967-event-contact-form" data-domain="forms" data-full-page="false" data-min-height="500px" data-form-id="120153"></div><script src="https://static-bundles.visme.co/forms/vismeforms-embed.js"></script>
+</section>
+  <footer class="footer">
+    <div class="footer-overlay"></div>
+    <div class="footer-container">
+      <!-- Backend Developer Section -->
+      <div class="footer-section address">
+        <h3>Backend Developed By:</h3>
+        <h4>Raghav Mishra</h4>
+        <div class="footer-year"><p>BCA 2023-26</p></div>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/raghav-mishra-46051830b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://raghavmishraportfolio.netlify.app" target="_blank"><i class="fas fa-globe"></i></a>
+          <a href="https://x.com/raghavmishraweb?s=11" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://www.instagram.com/raghav_mishra.jsx/?hl=en" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <!-- University Fest Name & Address -->
+      <div class="footer-section fest-name" id="future-name">
+        <h2>FUTURE FIESTA</h2>
+        <p><em>"Where Creativity Meets Innovation"</em></p>
+        <div class="future"><h3>Future University</h3></div>
+        
+        <div class="footer-address">
+          <p>18th Milestone, Bareilly Lucknow Highway</p>
+          <p>NH 24, Near Faridpur, Bareilly</p>
+        <p>Uttar Pradesh 243503</p>
+        <p>📞 +91-9917480040, 18001236789</p>
+        <p>📧 admissions@futureuniversity.in</p>
+        </div>
+      </div>
+
+      <!-- Frontend Developer Section -->
+      <div class="footer-section developers">
+        <h3>Frontend Developed By:</h3>
+        <h4>Shadmaan Ansari</h4>
+        <p>BCA 2023-26</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/shadmaan-ansari-aa7a74300?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://shadmaanansariportfolio.netlify.app/" target="_blank"><i class="fas fa-globe"></i></a>
+          <a href="https://x.com/MShadmaanA?t=hEbOjS956_eKRTQ0wdHNcg&s=08" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://www.instagram.com/xhadmaan?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <p class="copyright">© 2025 Future University | Future Fiesta. All rights reserved.</p>
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js" integrity="sha512-f6bQMg6nkSRw/xfHw5BCbISe/dJjXrVGfz9BSDwhZtiErHwk7ifbmBEtF9vFW8UNIQPhV2uEFVyI/UHob9r7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/ScrollTrigger.min.js" integrity="sha512-AcqPGqrrAEtEwe+ADO5R8RbdFi7tuU7b/A2cJJH0Im0D18NRk5p5s4B3E5PMuO81KFw0ClN7J5SHVUJz7KOb0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/public/js/script.js"></script>
+</body>
+
+</html>

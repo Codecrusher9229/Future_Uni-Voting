@@ -1,0 +1,275 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-image: url("/public/admin/pngtree-refreshing-natural-yellow-green-blue-watercolor-smudge-background-picture-image_1311486.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container {
+    height: 40w;
+    width: 90vw;
+    margin-left: 5vw;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    margin-top: 3vw;
+}
+
+.main {
+    display: flex;
+    padding-bottom: 4.3vw;
+    padding-top: 0vw;
+    margin-left: 2.2vw;
+    margin-top: 1vw;
+}
+
+h1 {
+    margin-left: 4vw;
+    padding-top: 1vw;
+}
+
+h5 {
+    color: red;
+    margin-left: 4vw;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 15px;
+    margin-left: 2vw;
+}
+
+
+
+.form-group div {
+    flex: 1;
+}
+
+.first {
+    margin-left: 2vw;
+}
+
+.second {
+    margin-left: 3vw;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    color: #555;
+    margin-top: 1.2vw;
+}
+
+input,
+select {
+    width: 30vw;
+    padding:8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus,
+select:focus {
+    border-color: #007ffe;
+    box-shadow: 0px 0px 5px rgba(0, 242, 254, 0.5);
+}
+
+.logo {
+   height: 6vw;
+   margin-right: 4vw;
+}
+
+.upper{
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    width: 90%;
+    margin-left: 4vw;
+    margin-bottom: 1vw;
+    padding: 10px;
+    border: none;
+    background: #253466;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #003b80;
+}
+
+
+@media screen and (max-width: 768px) {
+    .main {
+        height: 40vw;
+    }
+
+    h1{
+        line-height: 1.2;
+    }
+
+    .h5k{
+        margin-top: 8px;
+    }
+
+    body {
+        background-size: 260vw;
+    }
+
+    .logo {
+       visibility: hidden;
+    }
+
+    button {
+        width: 90%;
+        margin-left: 4vw;
+        margin-bottom: 2vw;
+        padding: 10px;
+        border: none;
+        background: #253466;
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 40px;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 429px) {
+
+    .main {
+        height: 100vw;
+        flex-direction: column;
+    }
+
+    h5 {
+        font-size: 2.5vw;
+    }
+
+    .logo {
+        display: none;
+        position: absolute;
+        top: 47px;
+        right: 75px;
+        width: 240px;
+        height: auto;
+    }
+
+    button {
+        width: 90%;
+        margin-left: 4vw;
+        margin-bottom: 2vw;
+        padding: 10px;
+        border: none;
+        background: #253466;
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 90px;
+    }
+
+    input,
+    select {
+        width: 70vw;
+        padding: 4px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+        outline: none;
+        transition: 0.3s;
+    }
+
+
+    label {
+        display: block;
+        font-weight: 500;
+        color: #555;
+        margin-top: 1.2vw;
+        font-size: 3.5vw;
+    }
+
+    /* select{
+        font-size: 3vw;
+        padding: 9px;
+    } */
+}
+
+@media screen and (max-width: 376px) {
+    h1 {
+        font-size: 8vw;
+        line-height: 1.3;
+
+    }
+
+    ::placeholder{
+        font-size: 3vw;
+    }
+
+    select{
+        font-size: 3vw;
+    }
+    #candidateImg{
+        font-size: 3vw;
+    }
+    .main {
+        height: 110vw;
+    }
+
+    button {
+        font-size: 3.5vw;
+    }
+
+    label {
+        margin-top: 8px;
+    }
+
+    .main {
+        margin-left: 0.5vw;
+    }
+
+    h4 {
+        margin-left: -1vw;
+    }
+}
+
+@media screen and (max-width: 321px) {
+    body {
+        background-size: 300vw;
+
+    }
+
+    .main {
+        height: 130vw;
+    }
+
+    label {
+        margin-top: 12px;
+    }
+
+
+}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <title>Leaderboard - Mr. & Miss Future</title>
+    <style>
+        body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(90deg, rgb(223, 187, 223), #b84e8d);
+    text-align: center;
+}
+header{     
+            background: linear-gradient(135deg, #253466, #b84e8d, #101a2b);
+            padding: 12px;
+            border-radius: 12px;
+            margin: auto;
+}
+h1{
+    color: wheat;
+}
+.leaderboard-container {
+    width: 90%;
+    margin: 20px auto;
+    background:#fff3dc;
+    /* opacity: 40%; */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.2);
+}
+
+ h2 {
+    color: #333;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 14px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.2s ease;
+}
+
+/* Modern Gradient Header */
+th {
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Zebra Striping for Rows */
+tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+tr:nth-child(even) {
+    background-color: #ffffff;
+}
+tbody tr:hover {
+    background: #dfe7fd;
+    transition: 0.3s ease-in-out;
+}
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
+</head>
+<body>
+    <div class="leaderboard-container">
+        <header>
+            <h1>🏆 Mr. & Miss Future Leaderboard</h1>
+        </header>
+        
+        <!-- Mr. Future Leaderboard -->
+        <section>
+            <h2>👑 Mr. Future</h2>
+            <table id="mrFutureTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Participant</th>
+                        <th>Votes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be inserted here dynamically -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Miss Future Leaderboard -->
+        <section>
+            <h2>👑 Miss Future</h2>
+            <table id="missFutureTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Participant</th>
+                        <th>Votes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be inserted here dynamically -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        async function fetchLeaderboard() {
+    try {
+        const response = await fetch("http://localhost:5000/api/future/leaderboard");
+        const data = await response.json();
+
+        const mrFutureTable = document.getElementById("mrFutureTable").querySelector("tbody");
+        const missFutureTable = document.getElementById("missFutureTable").querySelector("tbody");
+
+        mrFutureTable.innerHTML = "";
+        missFutureTable.innerHTML = "";
+
+        // Sort participants by votes (highest first)
+        data.mrFuture.sort((a, b) => b.votes - a.votes);
+        data.missFuture.sort((a, b) => b.votes - a.votes);
+
+        // Populate Mr. Future table
+        data.mrFuture.forEach((participant, index) => {
+            let row = `<tr>
+                <td>${index + 1}</td>
+                <td>${participant.fullName}</td>
+                <td>${participant.votes}</td>
+            </tr>`;
+            mrFutureTable.innerHTML += row;
+        });
+
+        // Populate Miss Future table
+        data.missFuture.forEach((participant, index) => {
+            let row = `<tr>
+                <td>${index + 1}</td>
+                <td>${participant.fullName}</td>
+                <td>${participant.votes}</td>
+            </tr>`;
+            missFutureTable.innerHTML += row;
+        });
+
+    } catch (error) {
+        console.error("Error fetching leaderboard:", error);
+    }
+}
+
+// Refresh leaderboard every 10 seconds
+setInterval(fetchLeaderboard, 10000);
+document.addEventListener("DOMContentLoaded", fetchLeaderboard);
+
+    </script>
+</body>
+</html>

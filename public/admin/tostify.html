@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Toast Example</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body>
+
+<div style="text-align: center; margin-top: 50px;">
+    <button onclick="showToast('Event added successfully!')">Show Success Toast</button>
+    <button onclick="showToast('Failed to add event!', 'error')">Show Error Toast</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+    function showToast(message, type = "success") {
+        Toastify({
+            text: message,
+            duration: 4000, 
+            close: true,
+            gravity: "top", 
+            position: "right",
+            stopOnFocus: true,
+            style: {
+                background: type === "success"
+                    ? "linear-gradient(to right, #28a745, #218838)" // Success green
+                    : "linear-gradient(to right, #dc3545, #c82333)", // Error red
+                color: "#ffffff",
+                boxShadow: "0px 4px 10px rgba(0,0,0,0.15)",
+                borderRadius: "8px",
+                padding: "12px 20px",
+                fontSize: "14px",
+                fontFamily: "'Poppins', sans-serif",
+            },
+            offset: {
+                x: 20,
+                y: 20,
+            },
+            onClick: function () { console.log("Toast clicked!"); }
+        }).showToast();
+    }
+</script>
+
+</body>
+</html>

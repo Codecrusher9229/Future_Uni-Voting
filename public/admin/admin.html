@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Future Fest</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <header>
+        <h1>Admin Dashboard</h1>
+        <nav>
+            <button class="nav-btn active" data-tooltip="Add Event" onclick="toggleSection('add-event')">
+                <i class="fas fa-calendar-plus"></i>
+                <span>Add event</span>
+            </button>
+            <button class="nav-btn" data-tooltip="Manage Events" onclick="toggleSection('manage-events')">
+                <i class="fas fa-wrench"></i>
+                <span>Manage Events</span>
+            </button>
+            <!-- <button class="nav-btn" data-tooltip="Upload Gallery" onclick="toggleSection('upload-gallery')">
+                <i class="fas fa-images"></i>
+                Upload gallery
+            </button> -->
+            <button class="nav-btn" data-tooltip="Registered Participants" onclick="toggleSection('registered-participants')">
+                <i class="fas fa-user-check"></i>
+                <span>Participants</span>
+            </button>
+            <button class="nav-btn" data-tooltip="Mr & Miss Future Registration" onclick="toggleSection('future-register')">
+                <i class="fas fa-crown"></i>
+                <span>Mr/Miss Future</span>
+            </button>
+            <!-- <button class="nav-btn" data-tooltip="Event Gallery" onclick="toggleSection('event-gallery')">
+                <i class="fas fa-photo-video"></i>
+                Event gallery
+            </button> -->
+            <button class="nav-btn" data-tooltip="Log Out" onclick="logout()">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Log out</span>
+            </button>
+        </nav>
+    </header>
+    
+
+    <main>
+      
+         <!-- Add New Event -->
+         <section id="add-event">
+            <h2>Add New Event</h2>
+            <form id="eventForm">
+                <label for="eventName">Event Name:</label>
+                <input type="text" id="eventName" required>
+
+                <label for="eventDate">Event Date:</label>
+                <input type="date" id="eventDate" required>
+                
+                <label for="eventDescription">Event Description:</label>
+                <textarea type="text" id="eventDescription" required> </textarea>
+                
+                <label for="eventImage">Upload Event Banner (Aspect Ratio 16:09*):</label>
+                <input type="file" id="eventImage" accept="image/*" placeholder="1920x1080" required>
+
+                <button type="submit">Add Event</button>
+            </form>
+            <div class="right">
+                <img class="formImage" src="/public/admin/logo.png" alt="Event Image">
+            </div>
+        </section>
+                <!-- Manage Events Section -->
+                <section id="manage-events">
+                    <!-- Admin Panel: Enable/Disable Registration & Voting -->
+    <h2>Enable/Disable Actions</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>🔹Registration Form</strong></td>
+                <td>
+                    <label class="switch">
+                        <input type="checkbox" id="toggleRegisterSwitch">
+                        <div class="slider round"></div>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>🔹Voting Booth</strong></td>
+                <td>
+                    <label class="switch">
+                        <input type="checkbox" id="toggleVoteSwitch">
+                        <div class="slider round"></div>
+                    </label>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+<p id="statusMessage"></p>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", async () => {
+    const toggleRegisterSwitch = document.getElementById("toggleRegisterSwitch");
+    const toggleVoteSwitch = document.getElementById("toggleVoteSwitch");
+    const statusMessage = document.getElementById("statusMessage");
+
+    if (!toggleRegisterSwitch || !toggleVoteSwitch || !statusMessage) {
+        console.error("Error: One or more elements not found!");
+        return;
+    }
+
+    // ✅ Fetch current toggle state
+    async function fetchToggleState() {
+        try {
+            const response = await fetch("http://localhost:5000/api/toggle");
+            if (!response.ok) throw new Error("❌ Failed to fetch toggle state!");
+
+            const data = await response.json();
+            console.log("✅ Toggle State:", data);
+
+            // ✅ Set toggle switch state based on API data
+            toggleRegisterSwitch.checked = !data.registerDisabled;
+            toggleVoteSwitch.checked = !data.voteDisabled;
+
+            updateStatusMessage(data.registerDisabled, data.voteDisabled);
+        } catch (error) {
+            console.error("❌ Error fetching toggle state:", error);
+            statusMessage.textContent = "⚠ Error fetching toggle state. Please try again!";
+            statusMessage.style.color = "orange";
+        }
+    }
+
+    // ✅ Function to toggle both buttons together
+    async function toggleBothButtons() {
+        try {
+            const registerDisabled = !toggleRegisterSwitch.checked;
+            const voteDisabled = !toggleVoteSwitch.checked;
+
+            const response = await fetch("http://localhost:5000/api/toggle/toggle-button", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ registerDisabled, voteDisabled })
+            });
+
+            if (!response.ok) throw new Error("❌ Failed to update toggle state!");
+
+        const data = await response.json();
+        console.log("✅ Updated Toggle State:", data);
+
+        updateStatusMessage(data.registerDisabled, data.voteDisabled);
+
+        // ✅ Notify index.html that the toggle state has changed
+        localStorage.setItem("toggleUpdate", Date.now()); // Store a timestamp
+
+    } catch (error) {
+        console.error("❌ Error updating toggle state:", error);
+    }
+}
+
+    // ✅ Function to update status message
+    function updateStatusMessage(registerDisabled, voteDisabled) {
+        if (registerDisabled && voteDisabled) {
+            statusMessage.textContent = "❌ Voting & Registration are currently disabled.";
+        } else if (registerDisabled) {
+            statusMessage.textContent = "❌ Registration is currently disabled.";
+        } else if (voteDisabled) {
+            statusMessage.textContent = "❌ Voting is currently disabled.";
+        } else {
+            statusMessage.textContent = "✅ Both Voting & Registration are open!";
+        }
+        statusMessage.style.color = (registerDisabled || voteDisabled) ? "red" : "green";
+    }
+
+    // ✅ Add event listeners for toggles
+    toggleRegisterSwitch.addEventListener("change", toggleBothButtons);
+    toggleVoteSwitch.addEventListener("change", toggleBothButtons);
+
+    fetchToggleState(); // Fetch state on page load
+});
+</script>
+
+                    <h2>Manage Events</h2>
+                    <button id="refreshBtn">Refresh</button>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Event Name</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Banner</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eventsTable">
+                            <tr><td colspan="6">Loading events...</td></tr>
+                        </tbody>
+                    </table>
+                </section>
+<script>
+    async function fetchAdminEvents() {
+    try {
+        const response = await fetch("http://localhost:5000/api/events"); 
+        if (!response.ok) throw new Error("Failed to fetch events.");
+
+        const events = await response.json();
+        const tableBody = document.getElementById("eventsTable");
+        tableBody.innerHTML = ""; // Clear table before inserting new data
+
+        if (events.length === 0) {
+            tableBody.innerHTML = "<tr><td colspan='6'>No events found.</td></tr>";
+            return;
+        }
+
+        events.forEach((event, index) => {
+            const row = `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${event.title}</td>
+                    <td>${new Date(event.date).toDateString()}</td>
+                    <td>${event.description}</td>
+                    <td><img src="${event.imageUrl}" width="80" height="50"></td>
+                    <td>
+                        <button onclick="editEvent('${event._id}')">Edit</button>
+                        <button onclick="deleteEvent('${event._id}')">Delete</button>
+                    </td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+    } catch (error) {
+        console.error("Error fetching events:", error);
+    }
+}
+
+// ✅ Redirect to Edit Event Page
+function editEvent(eventId) {
+    window.location.href = `edit-event.html?id=${eventId}`;
+}
+
+// ✅ Delete Event
+async function deleteEvent(eventId) {
+    if (!confirm("Are you sure you want to delete this event?")) return;
+
+    try {
+        const response = await fetch(`http://localhost:5000/api/events/${eventId}`, {
+            method: "DELETE"
+        });
+
+        const data = await response.json();
+        alert(data.message);
+        fetchAdminEvents(); // Refresh event list after deletion
+    } catch (error) {
+        console.error("Error deleting event:", error);
+    }
+}
+
+// ✅ Fetch Events on Page Load
+document.addEventListener("DOMContentLoaded", fetchAdminEvents);
+</script>                
+        
+        <!-- Upload Event Gallery Images -->
+        <section id="upload-gallery">
+            <h2>Upload Event Gallery Images</h2>
+            <h5 font-color="red">Only if event is completed successfully*</h5>
+            <form id="galleryForm">
+                <label for="galleryEvent">Select Event:</label>
+                <select id="galleryEvent">
+                    <option value="">Select an event</option>
+                </select>
+
+                <label for="galleryImages">Upload Images:</label>
+                <input type="file" id="galleryImages" accept="image/*" multiple required>
+
+                <button type="submit">Upload Images</button>
+            </form>
+        </section>
+
+        <!-- ✅ Registered Participants Section -->
+<section id="registered-participants">
+    <h2>Registered Participants</h2>
+    <button id="downloadCSVBtn">Download List</button>
+    <button id="deleteAllParticipantsBtn">Delete All Participants</button>
+    <button id="refreshParticipantsBtn">Refresh</button>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Department</th>
+                <th>Student ID</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Event Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="participantsTable">
+            <!-- Dynamic Data from JS will be inserted here -->
+        </tbody>
+    </table>
+    
+</section>
+<!-- Mr & Miss future registration -->
+ <section id="future-register">
+    <div class="motivational-message">
+        <h2>🌟 Welcome, Admin! You Hold the Power to Shape the Future! 🌟</h2>
+        <p>Dear Admin,</p>
+        <p>Today, you are not just registering candidates—you are opening the doors to <strong>opportunity, confidence, and transformation</strong>. Each entry you process is a dream waiting to take flight, a hidden potential ready to shine.</p>
+        
+        <p>✨ <strong>You are selecting future leaders.</strong></p>
+        <p>✨ <strong>You are empowering individuals to believe in themselves.</strong></p>
+        <p>✨ <strong>You are giving someone a platform to inspire others.</strong></p>
+    
+        <p>The <strong>Mr. & Miss Future</strong> event is not just about titles—it’s about <strong>passion, personality, and purpose</strong>. Your role as an admin is crucial in ensuring that <strong>every deserving candidate</strong> gets a fair chance to showcase their talents, confidence, and uniqueness.</p>
+    
+        <p>So, as you register the participants, remember—<strong>you are shaping the future, one registration at a time.</strong></p>
+    
+        <h3>🚀 Let’s make this an unforgettable journey! 🔥</h3>
+    
+        <p><em>"Great things never come from comfort zones. Today, you are giving someone the chance to step out and shine!"</em></p>
+    
+        <h3>Now, go ahead and register the next <strong>Mr. & Miss Future</strong> with pride! 🌟🏆</h3>
+    
+        <a href="future-register.html" class="register-button">Register Candidates</a>
+    </div>
+    
+    <style>
+        .motivational-message {
+            text-align: center;
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            width: 80%;
+        }
+    
+        .register-button {
+            display: inline-block;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #3a2b73, #a84bb8, #181d3b);
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 6px;
+            margin-top: 15px;
+            transition: 0.3s ease-in-out;
+        }
+    
+        .register-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+    </style>
+    
+    
+ </section>
+        <!-- Event Gallery -->
+        <section id="event-gallery">
+            <h2>Event Gallery</h2>
+            <div id="galleryImagesContainer">
+                <!-- Uploaded images will be displayed here -->
+            </div>
+        </section>
+        
+    </main>
+    <script>
+        function typeWriterEffect(element, text, speed) {
+    let i = 0;
+    element.innerHTML = "";
+    function type() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }
+    }
+    type();
+}
+
+// Example Usage
+window.onload = () => {
+    typeWriterEffect(document.querySelector('h1'), "Admin Dashboard", 50);
+    typeWriterEffect(document.querySelector('h2'), "Add New Event", 50);
+    
+};
+
+
+    </script>
+      <script src="admin.js"></script>
+</body>
+</html>

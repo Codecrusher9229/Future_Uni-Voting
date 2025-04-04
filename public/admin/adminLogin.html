@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Future Fest</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <link rel="stylesheet" href="adminLogin.css">
+</head>
+
+<body>
+    <div class="supermain">
+        <div class="submain">
+            <div class="lastmain">
+                <nav>
+                    <div class="two">
+                        <div class="logo"><a href="/"><img src="logo.png" alt="Logo"></a></div>
+                        <div class="back"><a href="/public/index.html"><img src="arrow-left-line.png" alt="Back"></a></div>
+                    </div>
+
+                    <div class="signin">
+                        <h1>Admin Sign In</h1>
+                        <h4>(Only for authorized administrators)</h4>
+                        <br>
+                        <div class="form">
+                            <form id="adminLoginForm">
+                                <label for="username">Username:</label>
+                                <br>
+                                <input type="text" id="username" name="username" required>
+                                <br>
+                                <label for="password">Password:</label>
+                                <br>
+                                <input type="password" name="password" id="password" required>
+                                <br>
+                                <button type="submit">Log in</button>
+                                <p id="loginMessage"></p> <!-- Message for login errors -->
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+                <main>
+                    <div class="clg"><img src="clg2.PNG" alt="College"></div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script src="adminLogin.js"></script>
+</body>
+</html>
