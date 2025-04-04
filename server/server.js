@@ -7,19 +7,7 @@ const cron = require("node-cron");
 
 dotenv.config();
 
-const app = express();
-
-// ✅ Middleware
-app.use(cors());
-app.use(express.json());
-
-// ✅ Serve static files (frontend) from "public" folder
-app.use(express.static(path.join(__dirname, "public")));
-
-// ✅ Uploads folder for images/files
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-// ✅ Import routes
+// ✅ Routes
 const eventRoutes = require("./routes/eventRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const galleryRoutes = require("./routes/galleryRoutes");
@@ -28,7 +16,16 @@ const futureRoutes = require("./routes/futureRoutes");
 const voteRoutes = require("./routes/voteRoutes");
 const toggleRoutes = require("./routes/toggleRoutes");
 
-// ✅ API routes
+const app = express();
+
+// ✅ Middleware
+app.use(cors());
+app.use(express.json());
+
+// ✅ Static files
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// ✅ Routes
 app.use("/api", registerRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/admin", adminRoutes);
@@ -37,12 +34,12 @@ app.use("/api/future", futureRoutes);
 app.use("/api", voteRoutes);
 app.use("/api/toggle", toggleRoutes);
 
-// ✅ Serve index.html on root (for Render)
+// ✅ Default route to fix "Cannot GET /"
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.send("Backend server is running successfully!");
 });
 
-// ✅ (Optional) Cleanup expired data daily
+// ✅ Daily cleanup task (optional)
 cron.schedule("0 0 * * *", async () => {
   try {
     const today = new Date();
@@ -58,7 +55,7 @@ cron.schedule("0 0 * * *", async () => {
   }
 });
 
-// ✅ Start server after connecting to MongoDB
+// ✅ MongoDB + Server start
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(process.env.MONGO_URI)
