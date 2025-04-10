@@ -4,19 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("registrationForm").addEventListener("submit", async function (event) {
         event.preventDefault();
 
-        // ✅ Start & End Time Validation
-        const startTime = new Date("March 20, 2025 08:00:00").getTime();
-        const endTime = new Date("April 5, 2025 10:00:00").getTime();
-        const now = new Date().getTime();
-        
-
-        if (now < startTime) {
-            alert("⚠ Registration has not started yet! Please come back on April 4, 2025, at 08:00 AM.");
-            return;
-        } else if (now > endTime) {
-            alert("❌ Registration is now closed! You cannot register after April 5, 2025, 10:00 AM.");
-            return;
-        }
+ 
 
         // ✅ Form Data Collection
         const fullName = document.getElementById("fullName").value.trim();
